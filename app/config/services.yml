@@ -1,0 +1,26 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    register_repository:
+        class: AppBundle\Repository\RegisterRepository
+        factory: ['@doctrine.orm.entity_manager', 'getRepository' ]
+        arguments:
+            - AppBundle:Register
+
+    register_add_command_handler:
+        class: AppBundle\CommandHandler\RegisterAddCommandHandler
+        arguments: ['@register_repository', '@validator']
+        tags:
+            - { name: command_handler, handles: AppBundle\Command\RegisterAddCommand }
+
+    register_update_command_handler:
+        class: AppBundle\CommandHandler\RegisterUpdateCommandHandler
+        arguments: ['@register_repository', '@validator']
+        tags:
+            - { name: command_handler, handles: AppBundle\Command\RegisterUpdateCommand }

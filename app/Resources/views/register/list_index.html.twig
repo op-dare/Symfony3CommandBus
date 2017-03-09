@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body%}
+
+    <h2>List</h2>
+    <a href="{{ path('list_post_add') }}">Add Student</a>
+    <hr>
+        <table class="table table-striped">
+            <thead>
+            <th>ID</th>
+            <th>name</th>
+            <th>surname</th>
+            <th>Operations</th>
+            </thead>
+            <tbody>
+            {% for list in lists %}
+                <tr>
+                    <td>{{ list.id }}</td>
+                    <td>{{ list.name }}</td>
+                    <td>{{ list.surname }}</td>
+                    <td>
+                        <a class="btn btn-warning" href="{{ path('list_edit', { registerId: list.id }) }}">Edit</a>
+                        <a class="btn btn-danger" href="{{ path('list_delete', { registerId: list.id }) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}

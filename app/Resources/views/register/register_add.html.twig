@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2>Add Student</h2>
+    <hr>
+    {{ form_start(form) }}
+        {{ form_row(form.name, { attr: { class: 'form-control' } }) }}
+        {{ form_row(form.surname, { attr: { class: 'form-control' } }) }}
+
+        <hr>
+        <input type="submit" value="Add" class="btn btn-success" />
+    {{ form_end(form) }}
+
+{% endblock %}
