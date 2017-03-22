@@ -20,7 +20,7 @@ class ListController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $lists = $this->getDoctrine()->getRepository('AppBundle:Register')->findAll();
+        $lists = $this->getDoctrine()->getRepository(Register::class)->findAll();
         return $this->render('register/list_index.html.twig', compact('lists'));
     }
 
@@ -34,7 +34,7 @@ class ListController extends Controller
 
         $register = new Register($name, $surname);
 
-        $form = $this->createForm('AppBundle\Form\RegisterType', $register);
+        $form = $this->createForm(RegisterType::class, $register);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,9 +46,9 @@ class ListController extends Controller
             return new RedirectResponse($this->generateUrl('list_index'));
         }
 
-       return $this->render('register/register_add.html.twig', array(
+        return $this->render('register/register_add.html.twig', [
             'form' => $form->createView()
-        ));
+        ]);
     }
 
     /**
@@ -57,8 +57,8 @@ class ListController extends Controller
     public function editAction(Request $request, $registerId)
     {
 		$entityManager = $this->getDoctrine()->getManager();
-        $register = $entityManager->getRepository('AppBundle:Register')->find($registerId);
-        $editForm = $this->createForm('AppBundle\Form\RegisterType', $register);
+        $register = $entityManager->getRepository(Register::class)->find($registerId);
+        $editForm = $this->createForm(RegisterType::class, $register);
         $editForm->handleRequest($request);
 
 		$name = $request->get("register")["name"];
@@ -71,15 +71,15 @@ class ListController extends Controller
 			);
 
 
-			return $this->redirectToRoute('list_index', array(
+			return $this->redirectToRoute('list_index', [
                 'id' => $register->getId()
-            ));
+            ]);
         }
 
-        return $this->render('register/register_edit.html.twig', array(
+        return $this->render('register/register_edit.html.twig', [
             'register' => $register,
             'edit_form' => $editForm->createView()
-        ));
+        ]);
 
     }
 
@@ -89,7 +89,7 @@ class ListController extends Controller
     public function deleteAction(Request $request, $registerId)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $repository = $entityManager->getRepository('AppBundle:Register');
+        $repository = $entityManager->getRepository(Register::class);
 		$register = $repository->find($registerId);
        	$repository->remove($register);
 
