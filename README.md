@@ -10,3 +10,9 @@ Simple Example Command Pattern with Symfony 3
     $ curl -s http://getcomposer.org/installer | php
     $ php composer.phar install
 ```
+
+## Getting Registery Students
+
+```
+    http://127.0.0.1:8000/list
+```
