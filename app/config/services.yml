@@ -9,7 +9,7 @@ services:
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     register_repository:
         class: AppBundle\Repository\RegisterRepository
-        factory: ['@doctrine.orm.entity_manager', 'getRepository' ]
+        factory: ['@doctrine.orm.entity_manager', 'getRepository']
         arguments:
             - AppBundle:Register
 
